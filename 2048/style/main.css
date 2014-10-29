@@ -306,7 +306,7 @@ hr {
   -moz-transition-property: -moz-transform;
   transition-property: transform; }
   .tile .tile-inner {
-    border-radius: 3px;
+    border-radius: 64px;
     background: #eee4da;
     text-align: center;
     font-weight: bold;
