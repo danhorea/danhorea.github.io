@@ -178,7 +178,7 @@
 				height = window.innerHeight;
 				
 				var evt = "touchstart";
-				if(width >= 500){
+				if(width >= 600){
 					width = 320;
 					height = 480;
 					canvas.style.border = "1px solid blue";
