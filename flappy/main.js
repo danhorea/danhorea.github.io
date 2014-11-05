@@ -36,7 +36,27 @@
 					
 					if(currentstate === states.Spash){
 						this.y = height - 280 + 5*Math.cos(frames/10);
-						this.rotation = 0;
+						this.rotation = 0;						
+					}
+					
+					else {
+                        this.velocity += this.gravity;
+                        this.y += this.velocity;
+
+                        if (this.y >= height - s_fg.height - 10) {
+                            this.y = height - s_fg.height - 10;
+                            if (currentstate === states.Game) {
+                                currentstate = states.Score;
+                            }
+                            this.velocity = this._jump;
+                        }
+						if(this.velocity >= this._jump){
+                            this.frame = 1;
+                            this.rotation = Math.min(Math.PI/2, this.rotation + 0.3);
+                        }
+                        else{
+                            this.rotation = -0.3;
+                        }
 						
 					}
 				},
@@ -53,10 +73,41 @@
 			},
 			
 			pipes = {
-				update: function(){},
-				
+
+                _pipes:[],
+
+                reset: function(){
+                    this._pipes = [];
+                },
+
+				update: function(){
+                    if(frames % 100 ===0){
+                        var _y = height - (s_pipeSouth.height + s_fg.height + 120 + 200*Math.random());
+                        this._pipes.push({
+                            x: 500,
+                            y: _y,
+                            width: s_pipeSouth.width,
+                            height: s_pipeSouth.height
+                        });
+                    }
+                    for(var i = 0, len = this._pipes.length; i < len; i++){
+                        var p = this._pipes[i];
+                        p.x -= 2;
+                        if(p.x < -50){
+                            this._pipes.splice(i, 1);
+                            i--;
+                            len--;
+                        }
+                    }
+                },
+
 				draw: function(ctx){
-					
+
+                    for(var i = 0, len = this._pipes.length; i < len; i++){
+                        var p = this._pipes[i];
+                        s_pipeSouth.draw(ctx, p.x, p.y);
+                        s_pipeNorth.draw(ctx, p.x, p.y + 80 + p.height);
+                    }
 				}
 		
 			};
@@ -123,10 +174,13 @@
 			
 			function update(){
 				frames++;
-				fgpos = (fgpos - 2) % 14;
-				
+                if(currentstate !== states.Score){
+                    fgpos = (fgpos - 2) % 14;
+                }
+                if(currentstate === states.Game){
+                    pipes.update();
+                }
 				bird.update();
-				pipes.update();
 			}
 			
 			function render(){
