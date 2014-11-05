@@ -13,8 +13,9 @@
 			currentstate,
 			states = {
 				Spash:0, Game:1, Score:2	
-			}
-			
+            },
+
+            okbtn,
 			bird = {
 				x:60,
 				y:100,
@@ -22,6 +23,7 @@
 				velocity: 0,
 				animation: [0, 1, 2 , 1],
 				rotation: 0,
+                radius: 12,
 				gravity: 0.25,
 				_jump: 4.6,
 				
@@ -65,9 +67,16 @@
 					ctx.save();
 					ctx.translate(this.x, this.y);
 					ctx.rotate(this.rotation);
-					
+
 					var n = this.animation[this.frame];
-					s_bird[n].draw(ctx, -s_bird[n].width/2, -s_bird[n].height/2)
+					s_bird[n].draw(ctx, -s_bird[n].width/2, -s_bird[n].height/2);
+
+                    //ctx.fillStyle = "blue";
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.radius, 0, 2*Math.PI );
+                    // ctx.stroke();
+                   // ctx.fill();
+
 					ctx.restore();
 				}
 			},
@@ -92,6 +101,29 @@
                     }
                     for(var i = 0, len = this._pipes.length; i < len; i++){
                         var p = this._pipes[i];
+
+                        //  COLISION    check
+                        if(i === 0){
+
+                            score += p.x === bird.x ? 1 : 0;
+                            var cx =  Math.min(Math.max(bird.x, p.x), p.x + p.width);
+                            var cy1 = Math.min(Math.max(bird.y, p.y), p.y + p.height);
+                            var cy2 = Math.min(Math.max(bird.y, p.y + p.height + 80), p.y + 2* p.height + 80);
+
+                            var dx  = bird.x - cx;
+                            var dy1 = bird.y - cy1;
+                            var dy2 = bird.y - cy2;
+
+                            var d1 = dx*dx + dy1*dy1;
+                            var d2 = dx*dx + dy2*dy2;
+
+                            var r = bird.radius * bird.radius;
+
+                            if(r > d1 || r > d2){
+                                currentstate = states.Score;
+                            }
+
+                        }
                         p.x -= 2;
                         if(p.x < -50){
                             this._pipes.splice(i, 1);
@@ -113,7 +145,6 @@
 			};
 			
 			function onpress(evt){
-				console.log(currentstate);
 				switch (currentstate){
 					case 0: // case Splash
 						currentstate = states.Game;
@@ -123,6 +154,17 @@
 						bird.jump();
 						break;						
 					case 2: //case Score
+                        var mx = evt.offsetX,
+                            my = evt.offsetY;
+
+                        if((okbtn.x < mx && mx < okbtn.x + okbtn.width &&
+                           okbtn.y < my && my < okbtn.y + okbtn.height) || true // Mozilla nu recunoaste OffsetX si OffsetY
+                        ){
+                            pipes.reset();
+                            currentstate = states.Spash;
+                            score = 0;
+                        }
+                        console.log(mx, my);
 						break;
 					default:
 						console.log("default");
@@ -158,8 +200,14 @@
 				img.onload = function(){
 					initSprites(this);
 					ctx.fillStyle = s_bg.color;
+                    okbtn ={
+                        x: (width - s_buttons.Ok.width)/2,
+                        y: height - 200,
+                        width: s_buttons.Ok.width,
+                        height: s_buttons.Ok.height
+                    };
 					run();
-				}
+				};
 				img.src = "res/sheet.png";
 			}
 			
@@ -176,6 +224,8 @@
 				frames++;
                 if(currentstate !== states.Score){
                     fgpos = (fgpos - 2) % 14;
+                } else{
+                    best = Math.max(best,score);
                 }
                 if(currentstate === states.Game){
                     pipes.update();
@@ -189,8 +239,8 @@
 				s_bg.draw(ctx, 0, height - s_bg.height);
 				s_bg.draw(ctx, s_bg.width, height - s_bg.height);
 				
-				bird.draw(ctx);
 				pipes.draw(ctx);
+                bird.draw(ctx);
 				
 				s_fg.draw(ctx, fgpos, height - s_fg.height);
 				s_fg.draw(ctx, fgpos + s_fg.width, height - s_fg.height);
@@ -202,6 +252,17 @@
 					s_text.GetReady.draw(ctx, width2 - s_text.GetReady.width/2,
 													   height - 380);
 				}
+                if(currentstate === states.Score){
+                    s_text.GameOver.draw(ctx, width2 - s_text.GameOver.width/2, height-400);
+                    s_score.draw(ctx, width2 - s_score.width/2, height-340);
+                    s_buttons.Ok.draw(ctx, okbtn.x, okbtn.y);
+
+                    s_numberS.draw(ctx, width2-47, height-304, score, null, 10);
+                    s_numberS.draw(ctx, width2-47, height-262, best, null, 10);
+                }
+                else{
+                    s_numberB.draw(ctx, null, 20, score, width2);
+                }
 				
 			}
 			
