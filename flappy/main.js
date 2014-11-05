@@ -152,6 +152,8 @@
 						break;						
 					case 1: //case Game
 						bird.jump();
+                        console.log(width);
+                        console.log(window.innerWidth);
 						break;						
 					case 2: //case Score
                         var mx = evt.offsetX,
