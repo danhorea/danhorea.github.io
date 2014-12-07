@@ -1,14 +1,65 @@
 <style>
-#content1{
-	height: 900px;
-	border: 2px solid #428bca;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+    #ourProjects{
+        height: 900px;
+        border: 2px solid #428bca;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .exampleProject{
+        border: 1px solid #4a939e;
+    }
+    .exampleProjectImg {
+        border-radius: 2px;
+        overflow: hidden;
+        margin-bottom: 5px;
+    }
+    .exampleProjectImg img{
+        -webkit-transition: 2s ease-in-out;
+        -moz-transition: 2s ease-in-out;
+        -o-transition: 2s ease-in-out;
+        transition: 2s ease-in-out;
+    }
+    .exampleProjectImg img:Hover{
+        -webkit-transform:scale(1.2);
+        -moz-transform:scale(1.2);
+        -o-transform:scale(1.2);
+        -ms-transform:scale(1.2);
+        transform:  scale(1.2);
+    }
+
 </style>
 
-<div class = "container">
-    <div id = "content1">
-        content!!!
+<div class = "container" id ="ourProjects">
+    content!!!
+    <div class="row">
+        <div class="col-md-3 exampleProject">
+            <h3><a href="#">Awesome project</a></h3>
+            <div class="exampleProjectImg">
+                <a href="#"><img src="img/projects/thumbnails/1.jpg"></a>
+            </div>>
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+        </div>
+        <div class="col-md-3 exampleProject">
+            <h3><a href="#">Factory</a></h3>
+            <div class="exampleProjectImg">
+                <a href="#"> <img src="img/projects/thumbnails/2.jpg"></a>
+            </div>
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+        </div>
+        <div class="col-md-3 exampleProject">
+            <h3><a href="#">Industrial</a></h3>
+            <div class="exampleProjectImg">
+                <a href="#"><img src="img/projects/thumbnails/3.jpg" ></a>
+            </div>
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+        </div>
+        <div class="col-md-3 exampleProject">
+            <h3><a href="#">Air Receiver</a></h3>
+            <div class="exampleProjectImg">
+                <a href="#">  <img src="img/projects/thumbnails/4.jpg"></a>
+            </div>
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+        </div>
+
     </div>
 </div>
