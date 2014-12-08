@@ -1,3 +1,5 @@
+
+<!--Insirat de pe github-->
 <style>
     .form-signin    {
         max-width: 330px;
@@ -78,14 +80,8 @@
                     <form class="form-signin">
                         <input type="text" class="form-control" placeholder="Username" required autofocus id="username">
                         <input type="password" class="form-control" placeholder="Password" required id="password">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="authenticationCheck()">
                             Sign in</button>
-                        <label class="checkbox pull-left">
-                            <input type="checkbox" value="remember-me">
-                            Remember me
-                        </label>
-                        <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                        <a href="#" class="text-center new-account">Create an account </a>
                     </form>
                 </div>
 
@@ -94,3 +90,14 @@
     </div>
 </div>
 <script type="text/javascript" src="js/login.js"></script>
+<script>
+    function authenticationCheck() {
+        var USERNAME = $("#username").val();
+        var PASSWORD = $("#password").val();
+        if(Authenticate(USERNAME, PASSWORD)){
+            alert("You are awesome indeed and you are authenticated!");//useless for now
+        }else{
+            alert("username or password wrong!!!");
+        }
+    }
+</script>

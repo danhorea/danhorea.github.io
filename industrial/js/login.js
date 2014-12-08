@@ -3,5 +3,16 @@
  */
 //for some reason console.log is not working
 //I am using alert
-alert("function working");
-console.log("function working");
+
+function Authenticate(USERNAME, PAROLA){
+    var isAuthenticated = new Boolean(false);
+    $.getJSON( "js/data/myUsers.json", function(data) {
+        for(var i in data.users){
+            if(USERNAME===data.users[i].username &&
+               PAROLA===data.users[i].password){
+              this.isAuthenticated = true;
+            }
+        }
+    });
+    return isAuthenticated;
+}
