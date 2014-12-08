@@ -1,3 +1,6 @@
+//doesn't work in Chrome if the project is on the local machine.
+
+
 //header css:
 var cssLink = $("<link rel='stylesheet' type='text/css' href='html/header/header.css'>");
 $("head").append(cssLink);
@@ -11,6 +14,7 @@ $("#precontent").load("html/precontent/precontent.html");
 $("#loginForm").load("html/login/loginForm.html");
 
 //content appending by scroll
+//doesn't work in Chrome if the project is on the local machine.
 var content1IsNotLoaded = true;
 var content2IsNotLoaded = true;
 var contactIsNotLoaded = true;
