@@ -7,6 +7,8 @@ $("#slider").load("html/slideShow/slideShow.html");
 $("#top").load("html/header/header.html");
 //precontent html
 $("#precontent").load("html/precontent/precontent.html");
+//login form loader
+$("#loginForm").load("html/login/loginForm.html");
 
 //content appending by scroll
 var content1IsNotLoaded = true;
