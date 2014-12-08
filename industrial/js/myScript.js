@@ -28,7 +28,7 @@ $(window).scroll(function() {
     if($(document).height() > 1200){
         if(content2IsNotLoaded && ($(window).scrollTop() == $(document).height() - $(window).height())) {
             // ajax call get data from server and append to the div
-            $("#content2").hide().load("html/content/content1.html").fadeIn(2000);
+            $("#content2").hide().load("html/content2/content2.html").fadeIn(2000);
             content2IsNotLoaded = false;
             //  console.log("Salut din PHP STORM");
         }
