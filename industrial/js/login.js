@@ -3,3 +3,5 @@
  */
 //for some reason console.log is not working
 //I am using alert
+alert("function working");
+console.log("function working");
